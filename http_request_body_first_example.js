@@ -8,6 +8,11 @@ Express application to parse incoming request bodies as text. This middleware is
 text-based request bodies, such as those sent in plain text format. It allows the application to
 parse and work with text data sent in requests. */
 app.use(express.text());
+app.use(express.json());
+/* The line `app.use(express.urlencoded({ extended: false }));` in the provided JavaScript code is
+setting up middleware in the Express application to parse incoming request bodies as URL-encoded
+data. */
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (request, response) => {
   response.send("Hello World!");
