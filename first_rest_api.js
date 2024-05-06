@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const PORT = 3000;
 const app = express();
 
-const productsArray = [
+let productsArray = [
   {
     id: 1,
     name: "Laptop",
@@ -30,12 +30,38 @@ app.post("/products", (request, response) => {
   response.status(201).send(newProduct);
 });
 
-app.put("/products", (request, response) => {
-  response.send("Updating products...");
+app.put("/products/:id", (request, response) => {
+  const productFound = productsArray.find(
+    (product) => product.id === parseInt(request.params.id)
+  );
+  if (!productFound) {
+    return response.status(404).json({ message: "Product Not Found" });
+  }
+
+  productsArray = productsArray.map((product) => {
+    return product.id === parseInt(request.params.id)
+      ? { ...product, ...request.body }
+      : product;
+  });
+
+  console.log(productsArray);
+  response.send(`Product ${request.params.id} successfully updated!`);
 });
 
-app.delete("/products", (request, response) => {
-  response.send("Deleting products...");
+app.delete("/products/:id", (request, response) => {
+  const productFound = productsArray.find(
+    (product) => product.id === parseInt(request.params.id)
+  );
+  if (!productFound) {
+    return response.status(404).json({ message: "Product Not Found" });
+  }
+
+  productsArray = productsArray.filter((product) => {
+    return product.id !== parseInt(request.params.id);
+  });
+
+  console.log(productsArray);
+  response.send(`Product ${request.params.id} successfully deleted!`);
 });
 
 app.get("/products/:id", (request, response) => {
