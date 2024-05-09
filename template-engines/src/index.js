@@ -22,6 +22,12 @@ app.use(morgan("dev"));
 app.use(HomeRoutes);
 app.use(UserRoutes);
 
+app.get("/public/style.css", (request, response) => {
+  response.sendFile("style.css", {
+    root: __dirname + "/public"
+  });
+});
+
 app.use((request, response) => {
   response.status(404).json({ statusCode: 404, message: "Page Not Found" });
 });

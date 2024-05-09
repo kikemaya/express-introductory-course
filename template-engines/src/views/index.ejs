@@ -1,11 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page with ejs</title>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-  </body>
-</html>
+<%- include("partials/header"); %>
+<h1><%= title %></h1>
+
+<!-- <%= new Date()  %> -->
+
+<% if(isActive) { %>
+<p>The server is on</p>
+<% } else { %>
+<p>The server is off</p>
+<% } %>
+
+<ul>
+<% for(let i=0;i<users.length;i++) { %>
+<li><%= users[i].id%>.- <%= users[i].name%> <%= users[i].lastname%></li>
+<% } %>    
+</ul>
+
+<%- include("partials/footer"); %>

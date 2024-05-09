@@ -3,16 +3,36 @@ const { Router } = require("express");
 const router = Router();
 
 router.get("/", (request, response) => {
-  response.send("Hello World!");
+  let isActive = true
+  
+  const users = [
+    {
+      id: 1,
+      name: "John",
+      lastname: "Doe"
+    },
+    {
+      id: 2,
+      name: "Ryan",
+      lastname: "Perez"
+    },
+    {
+      id: 3,
+      name: "Joe",
+      lastname: "McMillan"
+    },
+  ]
+
+  response.render("index", { title: "Index page", isActive, users });
 });
 
-router.all("/about", (request, response) => {
-  const title = "This page is written using express js";
-  response.render("index", { title });
+router.get("/about", (request, response) => {
+  const title = "About...";
+  response.render("about", { title });
 });
 
 router.get("/dashboard", (request, response) => {
-  response.send("Dashboard page");
+  response.render("dashboard");
 });
 
 module.exports = router;
