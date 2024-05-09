@@ -2,8 +2,13 @@ const { Router } = require("express");
 
 const router = Router();
 
+router.get("/", (request, response) => {
+  response.send("Hello World!");
+});
+
 router.all("/about", (request, response) => {
-  response.send("About page");
+  const title = "This page is written using express js";
+  response.render("index", { title });
 });
 
 router.get("/dashboard", (request, response) => {
